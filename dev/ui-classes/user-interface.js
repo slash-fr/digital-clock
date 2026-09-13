@@ -28,7 +28,7 @@ class UserInterface
     #exitFullscreenButton;
     
     /** @type {WakeLockSentinel|null} */
-    #wakeLock;
+    #wakeLock = null;
     
     /**
      * @param {Settings} settings 
@@ -132,21 +132,32 @@ class UserInterface
     
     #setupWakeLock()
     {
-        try {
-            navigator.wakeLock.request("screen").then((newLock) => {
-                this.#wakeLock = newLock;
-            });
-        } catch (error) {
-            console.error(error);
-        }
+        this.#requestWakeLock();
 
+        // On iOS, the WakeLock request only works *after* the user interacts with the document
+        document.addEventListener("click", this.#requestWakeLock.bind(this));
+        
         // Reacquire the lock on visibilitychange
         document.addEventListener("visibilitychange", async () => {
-            if (this.#wakeLock !== null && document.visibilityState === "visible") {
-                this.#wakeLock = await navigator.wakeLock.request("screen");
+            if (document.visibilityState === "visible") {
+                this.#requestWakeLock();
             }
         });
         // TODO: Maybe don't use a wake lock when displaying the "burn-in warning" or the settings?
+    }
+    
+    async #requestWakeLock()
+    {
+        if (this.#wakeLock !== null && !this.#wakeLock.released) {
+            // There already is an active WakeLock
+            return;
+        }
+        
+        try {
+            this.#wakeLock = await navigator.wakeLock.request("screen");
+        } catch (error) {
+            console.error(error);
+        }
     }
     
     /**

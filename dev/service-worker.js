@@ -1,6 +1,6 @@
 // Disambiguate between multiple PWAs potentially being hosted on the same subdomain
 const cachePrefix = "digital-clock-";
-const currentCacheName = cachePrefix + "v1";
+const currentCacheName = cachePrefix + "v2";
 
 const addResourcesToCache = async (resources) => {
     const cache = await caches.open(currentCacheName);

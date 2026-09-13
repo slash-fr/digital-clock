@@ -120,8 +120,8 @@ button {
     top: 100vh;
     left: 0;
     z-index: 3;
-    width: 100dvw;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
     padding: 20px;
     box-sizing: border-box;
     background-color: var(--dialog-background);
@@ -139,7 +139,7 @@ button {
 #preset-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    max-height: calc(100vh - 52px);
+    max-height: calc(100dvh - 52px);
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -148,7 +148,7 @@ button {
 }
 .preset-button .clock-background {
     position: relative;
-    max-height: calc(50vh - 31px);
+    max-height: calc(50dvh - 31px);
 }
 .preset-button .grainy-background {
     position: absolute;
