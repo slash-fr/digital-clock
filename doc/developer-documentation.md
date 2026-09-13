@@ -12,6 +12,12 @@ Please keep in mind that:
   (HTTPS or `localhost`)
 - It only works properly in `prod` mode (as it doesn't reference the myriad of `dev` JavaScript files)
 
+The wake lock (to prevent the screen from dimming) is also only available in secure contexts.
+
+iOS doesn't support fullscreen requests.
+Users have to add the app to their home screen, if they want to hide the navigation UI.
+
+
 ## "Build" process
 
 The `dev` folder contains non-minified HTML/JS/CSS.
@@ -19,6 +25,7 @@ The `dev` folder contains non-minified HTML/JS/CSS.
 A PHP script is provided to "build" the minified HTML, CSS and JavaScript files (no Webpack, no `npm`).
 
 You do **not** need PHP on your server. It's only used as a build tool.
+
 
 ### Setup
 
@@ -32,6 +39,7 @@ You do **not** need PHP on your server. It's only used as a build tool.
    and edit it to match your website.  
    In particular, you will need to enter the full absolute URL for `og:url` and `og:image`.
 
+
 ### Usage
 
 1. Update `currentCacheName` in `dev/service-worker.js` when updating assets (HTML, CSS, JS, images, …),
@@ -43,6 +51,7 @@ You do **not** need PHP on your server. It's only used as a build tool.
    ```
    It will generate the minified `prod/style.css`, `prod/main.js` and `prod/index.html` files
    from their corresponding source files, and copy any other necessary assets to the `prod` folder.
+
 
 ### Alternative
 
