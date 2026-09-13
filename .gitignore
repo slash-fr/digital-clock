@@ -1,4 +1,4 @@
 /dev/_opengraph-tags.html
-/prod
-!/prod/.gitkeep
+/prod/*
+!.gitkeep
 /vendor
